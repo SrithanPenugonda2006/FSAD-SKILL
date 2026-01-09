@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseRegistration {
 	
-	@Value("101")
 	private int rollNo;
-	@Value("Srithan")
 	private String studentName;
-	@Value("FSAD")
 	private String courseName;
-	@Value("4")
 	private int semester;
 	
-	public CourseRegistration() {
+	public CourseRegistration(@Value("101") int rollNo, @Value("Srithan") String studentName, @Value("FSAD") String courseName, @Value("4") int semester) {
+		this.rollNo = rollNo;
+		this.studentName = studentName;
+		this.courseName = courseName;
+		this.semester = semester;
 	}
 	
 	public void display() {
