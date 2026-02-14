@@ -1,34 +1,76 @@
 package com.klu.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.klu.model.Student;
 import com.klu.service.StudentService;
 
 @Service
-public class StudentServiceImpl implements StudentService{
-  @Override
+public class StudentServiceImpl implements StudentService {
+	
+	private List<Student> studentList = new ArrayList<>();
+	
+	@Override
     public String getWelcomeMessage() {
-        return "Hello from Spring MVC Service Layer!";
+        return "Welcome to Student MVC CRUD Application";
     }
 
-    @Override
-    public String getStudentById(int id) {
-        return "Student ID received: " + id;
-    }
-
-    @Override
-    public String searchStudent(String name, String course) {
-        return "Searching student with name = " + name + ", course = " + course;
-    }
     @Override
     public Student createStudent(Student student) {
-        // Normally save to DB
+        studentList.add(student);
         return student;
     }
+
     @Override
-    public String enrollStudent(int id, Student student) {
-        return "Student " + student.getName()
-                + " enrolled successfully with ID " + id;
+    public Student getStudentById(int id) {
+    	for (Student s : studentList) {
+    		if (s.getId() == id) {
+    			return s;
+    		}
+    	}
+    	return null;
     }
+    
+    @Override
+    public List<Student> getAllStudents() {
+    	return studentList;
+    }
+    
+    @Override
+    public Student updateStudent(int id, Student student) {
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).getId() == id) {
+                student.setId(id);
+                studentList.set(i, student);
+                return student;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public String deleteStudent(int id) {
+    	for (Student s : studentList) {
+    		if (s.getId() == id) {
+    			studentList.remove(id);
+    			return "Deleted Student Successfully";
+    		}
+    	}
+    	return "Student not found";
+    }
+    
+    @Override
+    public List<Student> searchStudent(String name, String course) {
+    	List<Student> stu = new ArrayList<>();
+    	for (Student s : studentList) {
+    		if (s.getName().equalsIgnoreCase(name) && s.getCourse().equalsIgnoreCase(course)) {
+    			stu.add(s);
+    		}
+    	}
+    	return stu;
+    }
+    
 }
