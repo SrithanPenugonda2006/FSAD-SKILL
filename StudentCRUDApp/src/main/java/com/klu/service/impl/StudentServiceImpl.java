@@ -42,6 +42,7 @@ public class StudentServiceImpl implements StudentService {
         if (existing != null) {
             existing.setName(student.getName());
             existing.setCourse(student.getCourse());
+            existing.setAge(student.getAge());
             return sr.save(existing);
         }
         return null;

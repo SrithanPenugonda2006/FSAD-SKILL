@@ -9,6 +9,7 @@ import com.klu.model.Student;
 import com.klu.service.StudentService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5175", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequestMapping("/api")
 public class StudentController {
 	@Autowired
